@@ -118,7 +118,7 @@ export const signIn = createAsyncThunk<
       refreshToken: data.refreshToken,
       expirationTime,
       userId: data.localId,
-      profilePicture: data.photoUrl,
+      profilePicture: data.profilePicture,
       userName: fullName[0],
       userSurname: fullName[1],
     };
