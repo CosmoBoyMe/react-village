@@ -1,3 +1,4 @@
 const ITEMS_PER_PAGE = 12;
+const ITEMS_PER_PAGE_MEDIUM = 6;
 
-export { ITEMS_PER_PAGE };
+export { ITEMS_PER_PAGE, ITEMS_PER_PAGE_MEDIUM };

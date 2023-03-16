@@ -32,11 +32,12 @@ import {
 } from '../../store/slices/auth/slice';
 import {
   cancelBookingStatusSelect,
+  errorMessageSelect,
   profileSelect,
+  statusSelect,
 } from '../../store/slices/profile/selectors';
 import { fetchBookedRooms } from '../../store/slices/profile/slice';
 import { setRate } from '../../store/slices/room/slice';
-import { roomsSelect } from '../../store/slices/rooms/selectors';
 import { fetchRooms } from '../../store/slices/rooms/slice';
 
 import {
@@ -53,14 +54,14 @@ import {
 import './Profile.scss';
 
 const Profile: FC = () => {
+  const dispatch = useAppDispatch();
   const userId = useSelector(userIdSelect);
   const bookedRooms = useAppSelector(profileSelect);
+  const status = useAppSelector(statusSelect);
+  const bookingErrorMessage = useAppSelector(errorMessageSelect);
   const { isAuth } = useSelector(authSelect);
   const cancelBookingStatus = useAppSelector(cancelBookingStatusSelect);
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-
-  const rooms = useSelector(roomsSelect);
 
   const [confirmedRooms, setConfirmedRooms] = useState(0);
   const [totalDiscount, setTotalDiscount] = useState(0);
@@ -85,10 +86,10 @@ const Profile: FC = () => {
   >(null);
 
   useEffect(() => {
-    if (rooms.length === 0) {
+    if (bookedRooms.length === 0) {
       dispatch(fetchRooms());
     }
-  }, [rooms, dispatch]);
+  }, [bookedRooms, dispatch]);
 
   useEffect(() => {
     if (userId) {
@@ -103,24 +104,17 @@ const Profile: FC = () => {
     setAdditionalService(additionalAmountService(bookedRooms));
   }, [bookedRooms, cancelBookingStatus]);
 
-  const BUTTONS_DATA = [
-    { name: 'все' },
-    { name: 'текущие' },
-    { name: 'не подтвержденные' },
-    { name: 'подтвержденные' },
-  ];
-
-  const [activeName, setActiveName] = useState('все');
+  // const [activeName, setActiveName] = useState('все');
 
   const handleStarIconClick = useCallback(
     async (roomNumber: string, rate: number) => {
       if (userId) {
-        const sequenceNumber = rooms.findIndex(
+        const sequenceNumber = bookedRooms.findIndex(
           (item) => item.roomNumber === Number(roomNumber)
         );
 
         const previousRate = Object.entries(
-          rooms[sequenceNumber].rates ?? {}
+          bookedRooms[sequenceNumber].rates ?? {}
         ).find((item) => item[1].userId === userId);
         const path = previousRate ? previousRate[0] : '';
 
@@ -136,12 +130,12 @@ const Profile: FC = () => {
         dispatch(fetchBookedRooms(userId));
       }
     },
-    [dispatch, rooms, userId]
+    [dispatch, bookedRooms, userId]
   );
 
-  const handleButtonClick = (name: string) => {
-    setActiveName(name);
-  };
+  // const handleButtonClick = (name: string) => {
+  //   setActiveName(name);
+  // };
 
   const handleSignOutButtonPointerDown = () => {
     dispatch(authActions.signOut());
@@ -255,32 +249,30 @@ const Profile: FC = () => {
                       />
                     )}
                   </div>
-                  <div className="profile__all-expenses">
-                    <p className="profile__all-expenses-title">
-                      Расходы за все время
-                    </p>
-                    <div className="profile__expenses-container">
-                      <span className="profile__expenses-title">Скидка</span>
-                      <span className="profile__discount">
-                        {moneyFormat.to(totalDiscount)}
-                      </span>
-                    </div>
-                    <div className="profile__expenses-container">
-                      <span className="profile__expenses-title">
-                        Дополнительные услуги
-                      </span>
-                      <span className="profile__additional-services">
-                        {moneyFormat.to(additionalService)}
-                      </span>
-                    </div>
-                    <div className="profile__expenses-container">
-                      <span className="profile__expenses-title">
-                        Проживание
-                      </span>
-                      <span className="profile__accommodation">
-                        {moneyFormat.to(priceAccommodation)}
-                      </span>
-                    </div>
+                </div>
+                <div className="profile__all-expenses">
+                  <p className="profile__all-expenses-title">
+                    Расходы за все время
+                  </p>
+                  <div className="profile__expenses-container">
+                    <span className="profile__expenses-title">Скидка</span>
+                    <span className="profile__discount">
+                      {moneyFormat.to(totalDiscount)}
+                    </span>
+                  </div>
+                  <div className="profile__expenses-container">
+                    <span className="profile__expenses-title">
+                      Дополнительные услуги
+                    </span>
+                    <span className="profile__additional-services">
+                      {moneyFormat.to(additionalService)}
+                    </span>
+                  </div>
+                  <div className="profile__expenses-container">
+                    <span className="profile__expenses-title">Проживание</span>
+                    <span className="profile__accommodation">
+                      {moneyFormat.to(priceAccommodation)}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -319,43 +311,13 @@ const Profile: FC = () => {
               </Modal>
             </div>
           </div>
-          <div className="profile__filter">
-            <h3 className="profile__filter-title">Забронированные номера</h3>
-            <div className="profile__filter-tabs">
-              {BUTTONS_DATA.map((button) => (
-                <button
-                  type="button"
-                  key={button.name}
-                  onClick={() => handleButtonClick(button.name)}
-                  className={classNames('profile__filter-tab', {
-                    'profile__filter-tab_active': button.name === activeName,
-                  })}
-                >
-                  {button.name}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className="profile__rooms-container">
-            <div className="profile__booking-rooms">
-              <BookingRooms onClickRate={handleStarIconClick} />
-            </div>
-            {bookedRooms.length > 0 && (
-              <div className="profile__confirmed-bookings-container">
-                <div className="profile__confirmed-bookings-title">
-                  Подтверждено броней
-                </div>
-                <div className="profile__confirmed-bookings">
-                  <span className="profile__confirmed-bookings-number">
-                    {confirmedRooms}
-                  </span>
-                  {' / '}
-                  <span className="profile__confirmed-bookings-all">
-                    {bookedRooms.length}
-                  </span>
-                </div>
-              </div>
-            )}
+          <div className="profile__booking-rooms">
+            <BookingRooms
+              rooms={bookedRooms}
+              status={status}
+              errorMessage={bookingErrorMessage}
+              onClickRate={handleStarIconClick}
+            />
           </div>
           <div className="profile__button-exit-container">
             <Button
