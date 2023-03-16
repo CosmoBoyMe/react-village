@@ -83,6 +83,10 @@ const Room = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (rooms.length === 0) {
       dispatch(fetchRooms());
     }

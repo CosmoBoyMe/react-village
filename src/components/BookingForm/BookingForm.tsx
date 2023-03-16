@@ -170,7 +170,7 @@ const BookingForm: FC<Props> = ({
           </button>
         </div>
         <span className="booking-form__services-price">
-          {moneyFormat.to(services)}
+          {moneyFormat.to(services - discountServices)}
         </span>
         <div className="booking-form__services-descriptions">
           <p className="booking-form__services-text">

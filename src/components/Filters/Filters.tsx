@@ -146,7 +146,7 @@ const Filters: FC = () => {
                 title="Диапазон цены"
                 start={[price.from, price.to]}
                 step={100}
-                range={{ min: price.min, max: price.max }}
+                range={price}
                 text="Стоимость за сутки пребывания в номере"
                 onChange={handleRangeSliderChange}
               />

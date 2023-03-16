@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo } from 'react';
+import { FC, useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -40,6 +40,23 @@ const Rooms: FC = () => {
     },
     [dispatch]
   );
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPage]);
+
+  useEffect(() => {
+    dispatch(setActivePageNumber(1));
+  }, [
+    rules,
+    price,
+    convenience,
+    availability,
+    furniture,
+    capacity,
+    selectedDates,
+    dispatch,
+  ]);
 
   const filteredRooms: RoomData[] = useMemo(
     () =>
