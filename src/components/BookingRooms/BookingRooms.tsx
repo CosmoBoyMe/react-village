@@ -72,6 +72,7 @@ const BookingRooms: FC = () => {
                 bookingId={room.bookingId}
                 isLux={room.isLux}
                 bookedDates={room.dates}
+                guests={room.guests}
               />
             ))}
           </div>

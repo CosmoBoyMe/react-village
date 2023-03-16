@@ -6,15 +6,15 @@ import { moneyFormat } from '../../shared/helpers/moneyFormat/moneyFormat';
 import './CardHeaderInfo.scss';
 
 type Props = {
-  price: number;
   roomNumber: number;
+  price?: number;
   isLux?: boolean;
   isLarge?: boolean;
 };
 
 const CardHeaderInfo: FC<Props> = ({
-  price,
   roomNumber,
+  price = 0,
   isLux = true,
   isLarge = false,
 }) => {
@@ -31,10 +31,14 @@ const CardHeaderInfo: FC<Props> = ({
         </span>
         {isLux && <span className="card-header-info__status">люкс</span>}
       </div>
-      <div className="card-header-info__price">
-        <span className="card-header-info__value">{moneyFormat.to(price)}</span>
-        <span className="card-header-info__days">в сутки</span>
-      </div>
+      {!!price && (
+        <div className="card-header-info__price">
+          <span className="card-header-info__value">
+            {moneyFormat.to(price)}
+          </span>
+          <span className="card-header-info__days">в сутки</span>
+        </div>
+      )}
     </div>
   );
 };
