@@ -1,3 +1,5 @@
+import { RateData } from '../../types/RateData';
+
 import { defaultRule, informationList, rulesList } from './constants';
 
 type Rules = { text: string; id: number }[];
@@ -88,4 +90,46 @@ const prepareUrl = (path: string, type: 'feedback' | 'like' = 'feedback') => {
   return url;
 };
 
-export { convertInformation, convertRules, prepareUrl };
+const getVotes = (votesEntries: RateData[]) => {
+  const votesObject = {
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
+  };
+
+  if (votesEntries.length) {
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i <= votesEntries.length; i++) {
+      if (votesEntries[i]) {
+        switch (votesEntries[i].rate) {
+          case 1:
+            votesObject[1] += 1;
+            break;
+
+          case 2:
+            votesObject[2] += 1;
+            break;
+
+          case 3:
+            votesObject[3] += 1;
+            break;
+
+          case 4:
+            votesObject[4] += 1;
+            break;
+
+          default:
+            votesObject[5] += 1;
+        }
+      }
+    }
+  }
+
+  return Object.entries(votesObject).map((item) => {
+    return { count: item[1], rating: Number(item[0]) };
+  });
+};
+
+export { convertInformation, convertRules, getVotes, prepareUrl };

@@ -9,6 +9,10 @@
 
   &__icon {
     cursor: pointer;
+
+    &_inactive {
+      cursor: default;
+    }
   }
 
   @include text-gradient;

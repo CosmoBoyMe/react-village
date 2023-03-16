@@ -1,16 +1,19 @@
 import { FC, useState } from 'react';
+import classNames from 'classnames';
 
 import './Rate.scss';
 
 type Props = {
   rateNumber: number;
+  isActive?: boolean;
   onClick?: (value: number) => void;
 };
 
-const Rate: FC<Props> = ({ rateNumber, onClick }) => {
+const Rate: FC<Props> = ({ rateNumber, isActive = false, onClick }) => {
   const [currentRateNumber, setCurrentRateNumber] = useState(rateNumber);
 
   const handleStarIconClick = (value: number) => {
+    if (!isActive) return;
     setCurrentRateNumber(value);
     onClick?.(value);
   };
@@ -27,7 +30,9 @@ const Rate: FC<Props> = ({ rateNumber, onClick }) => {
             }}
             onKeyDown={() => handleStarIconClick(value)}
             key={value}
-            className="rate__icon"
+            className={classNames('rate__icon', {
+              rate__icon_inactive: !isActive,
+            })}
             tabIndex={index}
           >
             {iconName}

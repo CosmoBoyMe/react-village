@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { BookingErrorMessages } from '../../shared/constants/BookingErrorMessages';
 import { ITEMS_PER_PAGE } from '../../shared/constants/paginationItems';
+import { getDateFromString } from '../../shared/helpers/getDateFromString/getDateFromString';
+import { getRating } from '../../shared/helpers/getRating/getRating';
 import {
   errorMessageSelect,
   profileSelect,
@@ -17,7 +19,11 @@ import { RoomBookingCard } from '../RoomBookingCard/RoomBookingCard';
 
 import './BookingRooms.scss';
 
-const BookingRooms: FC = () => {
+type Props = {
+  onClickRate?: (id: string, value: number) => void;
+};
+
+const BookingRooms: FC<Props> = ({ onClickRate }) => {
   const dispatch = useAppDispatch();
   const currentPage = useSelector(activePageNumberSelect);
   const bookedRooms = useAppSelector(profileSelect);
@@ -65,14 +71,15 @@ const BookingRooms: FC = () => {
                 roomNumber={room.roomNumber}
                 price={room.price}
                 feedbackCount={room.feedbackCount}
-                rateNumber={room.rating}
+                rateNumber={getRating(room.rates)}
                 imgsSrc={room.images}
                 totalAmount={room.totalAmount}
                 bookingStatus={room.bookingStatus}
                 bookingId={room.bookingId}
                 isLux={room.isLux}
                 bookedDates={room.dates}
-                guests={room.guests}
+                isRatingActive={getDateFromString(room.dates.to) <= new Date()}
+                onClickRate={onClickRate}
               />
             ))}
           </div>

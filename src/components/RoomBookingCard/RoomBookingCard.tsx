@@ -1,10 +1,9 @@
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setPromiseAlert, updatePromiseAlert } from '../../libs/toastify';
-import { getDaysBetweenDate } from '../../shared/helpers/getDaysBetweenDate/getDaysBetweenDate';
 import { moneyFormat } from '../../shared/helpers/moneyFormat/moneyFormat';
 import { userIdSelect } from '../../store/slices/auth/selectors';
 import {
@@ -12,10 +11,7 @@ import {
   statusSelect,
 } from '../../store/slices/profile/selectors';
 import { removeUserBooking } from '../../store/slices/profile/slice';
-import { DropdownGuestsItemData } from '../../types/DropdownItemData';
-import { BookingDetailsForm } from '../BookingDetailsForm/BookingDetailsForm';
 import { Button } from '../Button/Button';
-import { Modal } from '../Modal/Modal';
 import { Props as RoomCardProps, RoomCard } from '../RoomCard/RoomCard';
 
 import { hasBookingDateExpired } from './helpers';
@@ -26,7 +22,7 @@ type RoomBookingProps = {
   totalAmount: number;
   bookingStatus: boolean;
   bookingId: string;
-  guests: DropdownGuestsItemData[];
+  isRatingActive?: boolean;
 };
 
 export type Props = RoomCardProps & RoomBookingProps;
@@ -43,14 +39,14 @@ const RoomBookingCard: FC<Props> = ({
   bookingStatus,
   bookingId,
   isLux,
-  guests,
+  isRatingActive = false,
+  onClickRate,
 }) => {
   const userId = String(useSelector(userIdSelect));
   const dispatch = useAppDispatch();
   const errorMessage = useAppSelector(errorMessageSelect);
   const cancelBookingStatus = useAppSelector(statusSelect);
   const [disabledButton, setDisabledButton] = useState(false);
-  const [isModalActive, setIsModalActive] = useState(false);
 
   useEffect(() => {
     switch (cancelBookingStatus) {
@@ -80,11 +76,6 @@ const RoomBookingCard: FC<Props> = ({
     });
   };
 
-  const handleDetailsButtonClick = useCallback(
-    () => setIsModalActive(true),
-    []
-  );
-
   return (
     <div className="room-booking-card">
       <div className="room-booking-card__room-card">
@@ -97,6 +88,8 @@ const RoomBookingCard: FC<Props> = ({
           rateNumber={rateNumber}
           imgsSrc={imgsSrc}
           isLux={isLux}
+          isRatingActive={isRatingActive}
+          onClickRate={onClickRate}
         />
       </div>
       <div className="room-booking-card__about-booking">
@@ -141,11 +134,7 @@ const RoomBookingCard: FC<Props> = ({
                 hasBookingDateExpired(bookedDates.to),
             })}
           >
-            <Button
-              withBackground
-              text="Подробнее"
-              onClick={() => handleDetailsButtonClick()}
-            />
+            <Button withBackground text="Подробнее" />
           </div>
           {!hasBookingDateExpired(bookedDates.to) && (
             <div className="room-booking-card__button-container">
@@ -159,26 +148,6 @@ const RoomBookingCard: FC<Props> = ({
           )}
         </div>
       </div>
-      <Modal
-        isActive={isModalActive}
-        onClickClose={() => {
-          setIsModalActive(!isModalActive);
-        }}
-      >
-        <BookingDetailsForm
-          price={price}
-          roomNumber={roomNumber}
-          isLux={isLux}
-          totalAmount={totalAmount}
-          days={getDaysBetweenDate([
-            new Date(bookedDates.from.split('.').reverse().join('.')),
-            new Date(bookedDates.to.split('.').reverse().join('.')),
-          ])}
-          dates={bookedDates}
-          guests={guests}
-          onSubmit={() => setIsModalActive(false)}
-        />
-      </Modal>
     </div>
   );
 };
