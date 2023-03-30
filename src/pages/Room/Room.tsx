@@ -239,6 +239,7 @@ const Room: FC = () => {
                 roomNumber={aboutRoom.roomNumber}
                 isLux={aboutRoom.isLux}
                 selectedDate={filters.selectedDates}
+                bookedDates={aboutRoom.bookedDates}
                 guestItems={filters.capacity.items}
                 userId={user}
               />

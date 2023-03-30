@@ -286,6 +286,24 @@
           content: '';
         }
 
+        &.air-datepicker-cell_reserved,
+        &.air-datepicker-cell_reserved-end,
+        &.air-datepicker-cell_reserved-start {
+          &::after {
+            background: #f5c6cb;
+          }
+
+          &.-disabled- {
+            &::after {
+              background: linear-gradient(
+                180deg,
+                rgb(188 156 255 / 25%) 0%,
+                rgb(139 164 249 / 25%) 100%
+              );
+            }
+          }
+        }
+
         &.-focus- {
           color: #fff;
           background: linear-gradient(180deg, #bc9cff 0%, #8ba4f9 100%);
@@ -315,6 +333,28 @@
           border-radius: 50% 0 0 50%;
           content: '';
         }
+
+        &.air-datepicker-cell_reserved-start {
+          &::after {
+            background: #f5c6cb;
+          }
+        }
+
+        &.-range-to- {
+          border-radius: 22px;
+
+          &.air-datepicker-cell_reserved-end {
+            &::before {
+              background: linear-gradient(180deg, #bc9cff 0%, #8ba4f9 100%);
+            }
+          }
+        }
+
+        &.air-datepicker-cell_reserved {
+          &::after {
+            background: #f5c6cb;
+          }
+        }
       }
 
       &.-range-to- {
@@ -339,10 +379,26 @@
           border-radius: 0 50% 50% 0;
           content: '';
         }
-      }
 
-      &.-range-from-.-range-to- {
-        border-radius: 22px;
+        &.air-datepicker-cell_reserved-end {
+          &::before {
+            background: #f5c6cb;
+          }
+        }
+
+        &.-range-from- {
+          &.air-datepicker-cell_reserved-start {
+            &::after {
+              background: linear-gradient(180deg, #bc9cff 0%, #8ba4f9 100%);
+            }
+          }
+        }
+
+        &.air-datepicker-cell_reserved {
+          &::before {
+            background: #f5c6cb;
+          }
+        }
       }
 
       &.-selected- {

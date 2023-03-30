@@ -44,8 +44,8 @@ const Header: FC = () => {
       navigationRef.current !== null
     ) {
       if (
-        currentTarget.offsetWidth > WindowSizes.Medium &&
-        currentTarget.offsetWidth <= WindowSizes.Large
+        window.innerWidth > WindowSizes.Medium &&
+        window.innerWidth <= WindowSizes.Large
       ) {
         if (!navigationRef.current.contains(target)) {
           setIsBurgerMenuActive(false);

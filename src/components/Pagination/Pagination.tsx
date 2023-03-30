@@ -9,13 +9,15 @@ type Props = {
   itemsPerPage: number;
   totalRooms: number;
   currentPageNumber: number;
+  text?: string;
   onClickPage?: (pageNumber: number) => void;
 };
 
 const Pagination: FC<Props> = ({
   itemsPerPage,
   totalRooms,
-  currentPageNumber,
+  text = 'вариантов аренды',
+  currentPageNumber = FIRST_PAGE_NUMBER,
   onClickPage,
 }) => {
   const totalPage = Math.ceil(totalRooms / itemsPerPage);
@@ -78,8 +80,7 @@ const Pagination: FC<Props> = ({
         </button>
       </div>
       <p className="pagination__text">
-        {getCounterText(currentPageNumber, itemsPerPage, totalRooms)} вариантов
-        аренды
+        {getCounterText(currentPageNumber, itemsPerPage, totalRooms)} {text}
       </p>
     </div>
   );

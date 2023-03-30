@@ -131,6 +131,7 @@ const DropdownGuests: FC<Props> = ({
 
   return (
     <div
+      data-testid="dropdown"
       ref={dropdownRef}
       className={classNames('dropdown', {
         dropdown_opened: isOpen,

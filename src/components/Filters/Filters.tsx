@@ -99,7 +99,12 @@ const Filters: FC = () => {
   }, []);
 
   useEffect(() => {
-    setSearchParams(getNewSearchParams(filters));
+    const timer = setTimeout(
+      () => setSearchParams(getNewSearchParams(filters)),
+      250
+    );
+
+    return () => clearTimeout(timer);
   }, [filters, setSearchParams]);
 
   return (

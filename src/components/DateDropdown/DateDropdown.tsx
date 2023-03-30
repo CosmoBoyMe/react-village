@@ -9,6 +9,7 @@ import {
 import classNames from 'classnames';
 
 import { getFormattedDate } from '../../shared/helpers/getFormattedDate/getFormattedDate';
+import { BookedDatesData } from '../../types/BookedDatesData';
 import { DatePicker } from '../DatePicker/DatePicker';
 import { Input } from '../Input/Input';
 
@@ -18,6 +19,7 @@ type Props = {
   hasTwoInputs?: boolean;
   isDatepickerSmall?: boolean;
   selectedDates: Date[];
+  bookedDates?: BookedDatesData;
   onSelect?: (date: Date[]) => void;
 };
 
@@ -25,6 +27,7 @@ const DateDropdown: FC<Props> = ({
   hasTwoInputs = false,
   isDatepickerSmall = false,
   selectedDates,
+  bookedDates = {},
   onSelect,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,6 +35,8 @@ const DateDropdown: FC<Props> = ({
   const formattedDate = hasTwoInputs
     ? getFormattedDate(selectedDates, true)
     : getFormattedDate(selectedDates);
+
+  const reservedDates = Object.values(bookedDates).map((item) => item.dates);
 
   const handleDateDropdownSelect = (date: Date[]) => {
     onSelect?.(date);
@@ -101,6 +106,7 @@ const DateDropdown: FC<Props> = ({
               title="Прибытие"
               placeholder="ДД.ММ.ГГГГ"
               hasArrow
+              arrowIsRotated={isOpen}
               readOnly
               value={formattedDate[0]}
             />
@@ -111,6 +117,7 @@ const DateDropdown: FC<Props> = ({
               title="Выезд"
               placeholder="ДД.ММ.ГГГГ"
               hasArrow
+              arrowIsRotated={isOpen}
               readOnly
               value={formattedDate[1]}
             />
@@ -123,6 +130,7 @@ const DateDropdown: FC<Props> = ({
             title="Даты пребывания в отеле"
             placeholder="дд.мм - дд.мм"
             hasArrow
+            arrowIsRotated={isOpen}
             isLowerCase
             readOnly
             value={formattedDate.join(' - ')}
@@ -136,6 +144,7 @@ const DateDropdown: FC<Props> = ({
       >
         <DatePicker
           selectedDates={selectedDates}
+          reservedDates={reservedDates}
           dateFormatWithYear={hasTwoInputs}
           onSelect={handleDateDropdownSelect}
           isDatepickerSmall={isDatepickerSmall}

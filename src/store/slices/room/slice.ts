@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 import { FirebaseAPI } from '../../../FirebaseAPI';
+import { BookedDatesData } from '../../../types/BookedDatesData';
 import { FeedbackData } from '../../../types/FeedbackData';
 import { LikeData } from '../../../types/LikeData';
 import { Message } from '../../../types/Message';
@@ -51,6 +52,22 @@ export const fetchRoomById = createAsyncThunk<
     }
 
     return rejectWithValue('Произошла неизвестная ошибка, попробуйте позже');
+  }
+});
+
+export const getBookings = createAsyncThunk<
+  BookedDatesData | undefined,
+  number,
+  { rejectValue: string }
+>(`${NAMESPACE}/getBookings`, async (id, { rejectWithValue }) => {
+  try {
+    const { data } = await FirebaseAPI.fetchRoomById(id);
+
+    return Object.values(data)[0].bookedDates;
+  } catch (error) {
+    return axios.isAxiosError(error)
+      ? rejectWithValue(error.message)
+      : rejectWithValue('Произошла неизвестная ошибка, попробуйте позже');
   }
 });
 
@@ -114,6 +131,10 @@ const slice = createSlice({
         state.status = 'resolved';
         state.room = payload;
         state.errorMessage = null;
+      })
+      .addCase(getBookings.fulfilled, (state, { payload }) => {
+        if (state.room)
+          state.room.bookedDates = payload || state.room.bookedDates;
       })
       .addCase(addFeedback.fulfilled, (state, { payload }) => {
         state.feedbackStatus = 'resolved';
