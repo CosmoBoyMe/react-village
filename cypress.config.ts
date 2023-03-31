@@ -1,7 +1,9 @@
-const { defineConfig } = require('cypress')
+import { defineConfig } from 'cypress';
 
-module.exports =  defineConfig({
+export default defineConfig({
   e2e: {
     baseUrl: 'http://localhost:3000',
+    viewportWidth: 1920,
+    viewportHeight: 1080,
   },
 });

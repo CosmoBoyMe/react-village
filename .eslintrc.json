@@ -16,7 +16,8 @@
     "plugin:import/typescript",
     "plugin:prettier/recommended",
     "react-app",
-    "react-app/jest"
+    "react-app/jest",
+    "plugin:cypress/recommended"
   ],
   "overrides": [
     {
