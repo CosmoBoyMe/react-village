@@ -295,7 +295,7 @@ describe('dropdownGuests component rendering', () => {
 
     render(<DropdownGuests items={guests} />);
 
-    const dropdown = screen.getByTestId('dropdown');
+    const dropdown = screen.getByTestId('guest-dropdown');
 
     expect(dropdown).not.toHaveClass('dropdown_opened');
     act(() => {

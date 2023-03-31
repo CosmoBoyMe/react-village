@@ -7,7 +7,7 @@ import { profileReducer } from './slices/profile/slice';
 import { roomReducer } from './slices/room/slice';
 import { roomsReducer } from './slices/rooms/slice';
 
-export const rootReducer = combineReducers({
+const rootReducer = combineReducers({
   auth: authReducer,
   filters: filtersReducer,
   rooms: roomsReducer,
@@ -16,7 +16,7 @@ export const rootReducer = combineReducers({
   profile: profileReducer,
 });
 
-export const store = configureStore({
+const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -24,5 +24,6 @@ export const store = configureStore({
     }),
 });
 
+export { rootReducer, store };
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

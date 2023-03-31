@@ -30,7 +30,7 @@ type InitialState = {
   rateErrorMessage: Message;
 };
 
-const initialState: InitialState = {
+export const initialState: InitialState = {
   bookedRooms: [],
   status: 'idle',
   cancelBookingStatus: 'idle',
@@ -249,4 +249,4 @@ const slice = createSlice({
 
 const profileReducer = slice.reducer;
 
-export { initialState, profileReducer };
+export { profileReducer };

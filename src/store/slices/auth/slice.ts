@@ -36,7 +36,7 @@ type InitialState = {
   changeUserNameErrorMessage: AuthError | string | null;
 };
 
-const initialState: InitialState = {
+export const initialState: InitialState = {
   isAuth: !!localStorage.getItem('token'),
   token: localStorage.getItem('token') || null,
   email: localStorage.getItem('email') || null,
@@ -524,4 +524,3 @@ const slice = createSlice({
 });
 
 export const { reducer: authReducer, actions: authActions } = slice;
-export { initialState };

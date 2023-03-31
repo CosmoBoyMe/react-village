@@ -14,7 +14,7 @@ type InitialState = {
   errorMessage: string | null;
 };
 
-const initialState: InitialState = {
+export const initialState: InitialState = {
   booking: [],
   status: 'idle',
   errorMessage: null,
@@ -141,4 +141,4 @@ const slice = createSlice({
 
 const bookingReducer = slice.reducer;
 
-export { bookingReducer, initialState };
+export { bookingReducer };

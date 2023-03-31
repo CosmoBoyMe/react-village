@@ -23,11 +23,13 @@ const CheckBox: FC<Props> = ({
   return (
     <li className="check-box">
       <label
+        data-testid="check-box__category"
         className={classnames('check-box__category', {
           'check-box__category_rich': isRich,
         })}
       >
         <input
+          data-testid={`check-box-input ${name}`}
           className="check-box__input"
           type="checkbox"
           name={name}
@@ -38,7 +40,12 @@ const CheckBox: FC<Props> = ({
         <div className="check-box__text">
           <span className="check-box__name">{label}</span>
           {description && (
-            <span className="check-box__description">{description}</span>
+            <span
+              data-testid="check-box__description"
+              className="check-box__description"
+            >
+              {description}
+            </span>
           )}
         </div>
       </label>

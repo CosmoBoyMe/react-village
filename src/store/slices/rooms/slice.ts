@@ -13,7 +13,7 @@ type InitialState = {
   errorMessage: string | null;
 };
 
-const initialState: InitialState = {
+export const initialState: InitialState = {
   rooms: [],
   roomsAmount: 0,
   activePageNumber: 1,
@@ -72,4 +72,4 @@ const slice = createSlice({
 const { setActivePageNumber } = slice.actions;
 const roomsReducer = slice.reducer;
 
-export { initialState, roomsReducer, setActivePageNumber };
+export { roomsReducer, setActivePageNumber };

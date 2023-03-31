@@ -25,7 +25,6 @@ type RoomData = {
   imagesDetailed: string[];
   isLux: boolean;
   price: number;
-  rating: number;
   feedbackCount: number;
   information: Record<string, boolean>;
   votes?: { count: number; rating: number }[];

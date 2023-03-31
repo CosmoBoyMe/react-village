@@ -1,4 +1,4 @@
-import { act, fireEvent, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import '@testing-library/jest-dom';
@@ -8,6 +8,13 @@ import { renderWithProviders } from '../../../shared/testUtils/testUtils';
 import { initialState as authInitialState } from '../../../store/slices/auth/slice';
 import { initialState as roomsInitialState } from '../../../store/slices/rooms/slice';
 import { App } from '../App';
+
+beforeAll(() => {
+  Object.defineProperty(window, 'scrollTo', {
+    value: () => {},
+    writable: true,
+  });
+});
 
 describe('Application rendering', () => {
   it(`Renders application with correct routing 
@@ -78,15 +85,13 @@ describe('Application rendering', () => {
       await screen.findByText('Забронированные номера')
     ).toBeInTheDocument();
 
-    act(() => {
-      userEvent.click(screen.getByText('о нас'));
-    });
+    userEvent.click(screen.getByText('о нас'));
     userEvent.click(screen.getByText('подобрать номер'));
     expect(
       await screen.findByText('Номера, которые мы для вас подобрали')
     ).toBeInTheDocument();
 
-    fireEvent.click(await screen.findByText('111'));
+    userEvent.click(await screen.findByText('111'));
     expect(
       screen.queryByText('Номера, которые мы для вас подобрали')
     ).not.toBeInTheDocument();
