@@ -136,7 +136,6 @@ const DropdownGuests: FC<Props> = ({
       className={classNames('dropdown', {
         dropdown_opened: isOpen,
       })}
-      data-testid="dropdown"
     >
       <h3 className="dropdown__heading">Гости</h3>
       <div className="dropdown__wrapper">
