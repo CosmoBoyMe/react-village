@@ -1,0 +1,45 @@
+@import '../../styles/mixins';
+
+.tabs {
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  box-shadow: 0 4px 25px rgb(0 0 0 / 10%);
+
+  @include medium {
+    flex-direction: column;
+  }
+
+  &__item {
+    @include font-h3;
+
+    padding: 6px 20px 7px 22px;
+    color: var(--dark-shade-75);
+    font-size: 12px;
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+
+    &_active {
+      color: var(--purple);
+      background-color: var(--white);
+      border: 1px solid rgb(31 32 65 / 10%);
+
+      &:first-child {
+        border-radius: 4px 0 0 4px;
+      }
+
+      &:last-child {
+        border-radius: 0 4px 4px 0;
+      }
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    @include medium {
+      width: 100%;
+    }
+  }
+}

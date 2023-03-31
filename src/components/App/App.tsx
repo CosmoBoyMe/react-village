@@ -1,17 +1,18 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 
-import { useAppDispatch, useAppSelector } from './hooks/redux';
-import { calculateRemainingTime } from './shared/helpers/calculateRemainingTime/calculateRemainingTime';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { AppRoutes } from '../../routes';
+import { calculateRemainingTime } from '../../shared/helpers/calculateRemainingTime/calculateRemainingTime';
 import {
   expirationTimeSelect,
   refreshTokenSelect,
-} from './store/slices/auth/selectors';
-import { reauthenticate } from './store/slices/auth/slice';
-import { AppRoutes } from './routes';
+} from '../../store/slices/auth/selectors';
+import { reauthenticate } from '../../store/slices/auth/slice';
+
 import 'react-toastify/dist/ReactToastify.css';
 
-const App = () => {
+const App: FC = () => {
   const dispatch = useAppDispatch();
   const expirationTime = useAppSelector(expirationTimeSelect);
   const refreshToken = useAppSelector(refreshTokenSelect);

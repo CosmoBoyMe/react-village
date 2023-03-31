@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import classNames from 'classnames';
@@ -49,7 +49,7 @@ import {
 } from './helpers';
 import './Room.scss';
 
-const Room = () => {
+const Room: FC = () => {
   const [isModalActive, setIsModalActive] = useState(false);
   const [isZoomActive, setIsZoomActive] = useState(
     window.innerWidth < WindowSizes.Medium
@@ -98,6 +98,10 @@ const Room = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     switch (feedbackStatus) {
       case 'loading':
         setPromiseAlert(ROOM_FEEDBACK_TOAST_ID, 'Сохранение комментария...');
@@ -125,50 +129,44 @@ const Room = () => {
     if (isZoomActive) setIsModalActive(true);
   };
 
-  const handleFeedbackSubmit = useCallback(
-    (text: string, path = '') => {
-      if (user && name && surname && id)
-        dispatch(
-          addFeedback({
-            roomNumber: id,
-            text,
-            profilePicture: profilePicture ?? undefined,
-            path: path ? prepareUrl(path) : 'feedback',
-            userId: user,
-            date: new Date(),
-            userName: `${name} ${surname}`,
-          })
-        );
-    },
-    [dispatch, id, profilePicture, name, surname, user]
-  );
+  const handleFeedbackSubmit = (text: string, path = '') => {
+    if (user && name && surname && id)
+      dispatch(
+        addFeedback({
+          roomNumber: id,
+          text,
+          profilePicture: profilePicture ?? undefined,
+          path: path ? prepareUrl(path) : 'feedback',
+          userId: user,
+          date: new Date(),
+          userName: `${name} ${surname}`,
+        })
+      );
+  };
 
-  const handleFeedbackLike = useCallback(
-    (isLiked: boolean, path = '') => {
-      const url = path ? prepareUrl(path, 'like') : 'likes';
+  const handleFeedbackLike = (isLiked: boolean, path = '') => {
+    const url = path ? prepareUrl(path, 'like') : 'likes';
 
-      if (user && id && isLiked === true)
-        dispatch(
-          changeLike({
-            roomNumber: id,
-            path: url,
-            userId: user,
-            isLiked,
-          })
-        );
+    if (user && id && isLiked === true)
+      dispatch(
+        changeLike({
+          roomNumber: id,
+          path: url,
+          userId: user,
+          isLiked,
+        })
+      );
 
-      if (user && id && isLiked === false)
-        dispatch(
-          changeLike({
-            roomNumber: id,
-            path: url,
-            userId: user,
-            isLiked,
-          })
-        );
-    },
-    [dispatch, id, user]
-  );
+    if (user && id && isLiked === false)
+      dispatch(
+        changeLike({
+          roomNumber: id,
+          path: url,
+          userId: user,
+          isLiked,
+        })
+      );
+  };
 
   return (
     <main className="room">
@@ -241,6 +239,7 @@ const Room = () => {
                 roomNumber={aboutRoom.roomNumber}
                 isLux={aboutRoom.isLux}
                 selectedDate={filters.selectedDates}
+                bookedDates={aboutRoom.bookedDates}
                 guestItems={filters.capacity.items}
                 userId={user}
               />

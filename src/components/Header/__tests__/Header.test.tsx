@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { act, fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -11,8 +10,8 @@ import { Header } from '../Header';
 
 describe('Header component rendering', () => {
   it('Header layout matches the snapshot', () => {
-    const header = renderWithProviders(<Header />);
-    expect(header).toMatchSnapshot();
+    const view = renderWithProviders(<Header />);
+    expect(view).toMatchSnapshot();
   });
 
   it('mobile mode', () => {
@@ -25,11 +24,7 @@ describe('Header component rendering', () => {
       configurable: true,
       value: 30000,
     });
-
-    act(() => {
-      fireEvent(window, new Event('resize'));
-    });
-
+    fireEvent(window, new Event('resize'));
     expect(document.body).not.toHaveStyle('overflow: hidden');
     act(() => {
       userEvent.click(burger);
@@ -41,15 +36,70 @@ describe('Header component rendering', () => {
       configurable: true,
       value: 500,
     });
-    act(() => {
-      fireEvent(window, new Event('resize'));
-    });
-
+    fireEvent(window, new Event('resize'));
     expect(document.body).toHaveStyle('overflow: hidden');
 
     act(() => {
       userEvent.click(burger);
     });
+    expect(document.body).not.toHaveStyle('overflow: hidden');
+    act(() => {
+      userEvent.click(burger);
+    });
+    expect(document.body).toHaveStyle('overflow: hidden');
+
+    Object.defineProperty(window, 'innerWidth', {
+      writable: true,
+      configurable: true,
+      value: 450,
+    });
+    fireEvent(window, new Event('resize'));
+    expect(document.body).toHaveStyle('overflow: hidden');
+
+    Object.defineProperty(window, 'innerWidth', {
+      writable: true,
+      configurable: true,
+      value: 770,
+    });
+    fireEvent(window, new Event('resize'));
+    expect(document.body).not.toHaveStyle('overflow: hidden');
+
+    Object.defineProperty(window, 'innerWidth', {
+      writable: true,
+      configurable: true,
+      value: 500,
+    });
+    fireEvent(window, new Event('resize'));
+    expect(document.body).toHaveStyle('overflow: hidden');
+
+    Object.defineProperty(window, 'innerWidth', {
+      writable: true,
+      configurable: true,
+      value: 1980,
+    });
+    fireEvent(window, new Event('resize'));
+    expect(document.body).not.toHaveStyle('overflow: hidden');
+
+    Object.defineProperty(window, 'innerWidth', {
+      writable: true,
+      configurable: true,
+      value: 500,
+    });
+    fireEvent(window, new Event('resize'));
+    act(() => {
+      userEvent.click(burger);
+    });
+    expect(document.body).toHaveStyle('overflow: hidden');
+    userEvent.click(screen.getByRole('navigation'));
+    expect(document.body).toHaveStyle('overflow: hidden');
+
+    Object.defineProperty(window, 'innerWidth', {
+      writable: true,
+      configurable: true,
+      value: 1000,
+    });
+    fireEvent(window, new Event('resize'));
+    userEvent.click(screen.getByRole('navigation'));
     expect(document.body).not.toHaveStyle('overflow: hidden');
   });
 

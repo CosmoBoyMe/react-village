@@ -157,8 +157,8 @@ export const removeUserBooking = createAsyncThunk<
 );
 
 export const setRate = createAsyncThunk<
-  CurrentRates & RateData,
-  RateData,
+  CurrentRates & RateData & { roomNumber: string },
+  RateData & { roomNumber: string },
   { rejectValue: string }
 >(`${NAMESPACE}/setRate`, async (rateData, { rejectWithValue }) => {
   try {
@@ -227,7 +227,6 @@ const slice = createSlice({
               [index]: {
                 userId: payload.userId,
                 rate: payload.rate,
-                roomNumber: payload.roomNumber,
               },
             };
           }

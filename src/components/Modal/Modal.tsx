@@ -17,7 +17,7 @@ const Modal: FC<Props> = ({
   isPositionTop = false,
 }) => {
   const handleModalCloseClick = () => {
-    onClickClose?.();
+    onClickClose();
   };
 
   return (

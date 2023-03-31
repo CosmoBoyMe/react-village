@@ -1,12 +1,6 @@
 import { RateData } from '../../../types/RateData';
 
-const getRating = (
-  rates:
-    | {
-        [key: string]: RateData;
-      }
-    | undefined
-) => {
+const getRating = (rates?: { [key: string]: RateData }) => {
   let rate = 0;
   if (rates) {
     const values = Object.values(rates);

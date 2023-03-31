@@ -3,11 +3,11 @@ import userEvent from '@testing-library/user-event';
 
 import '@testing-library/jest-dom';
 
+import { mockedStore } from '../../../shared/testUtils/mockedStore';
+import { renderWithProviders } from '../../../shared/testUtils/testUtils';
+import { initialState as authInitialState } from '../../../store/slices/auth/slice';
+import { initialState as roomsInitialState } from '../../../store/slices/rooms/slice';
 import { App } from '../App';
-import { mockedStore } from '../shared/testUtils/mockedStore';
-import { renderWithProviders } from '../shared/testUtils/testUtils';
-import { initialState as authInitialState } from '../store/slices/auth/slice';
-import { initialState as roomsInitialState } from '../store/slices/rooms/slice';
 
 describe('Application rendering', () => {
   it(`Renders application with correct routing 
@@ -55,7 +55,7 @@ describe('Application rendering', () => {
       feedbackCount: 2,
       information: {},
     };
-    const app = renderWithProviders(<App />, {
+    const view = renderWithProviders(<App />, {
       preloadedState: {
         ...mockedStore,
         auth: {
@@ -91,6 +91,6 @@ describe('Application rendering', () => {
       screen.queryByText('Номера, которые мы для вас подобрали')
     ).not.toBeInTheDocument();
     expect(await screen.findByTitle('ожидание загрузки')).toBeInTheDocument();
-    expect(app).toMatchSnapshot();
+    expect(view).toMatchSnapshot();
   });
 });

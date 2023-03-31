@@ -55,7 +55,7 @@ const SearchRoomForm: FC = () => {
         <DateDropdown
           hasTwoInputs
           onSelect={handleDateDropdownSelect}
-          initialDates={selectedDates}
+          selectedDates={selectedDates}
         />
       </div>
       <div className="search-rooms-form__dropdown">

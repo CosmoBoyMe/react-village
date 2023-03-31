@@ -25,9 +25,8 @@ const Dropdown: FC<Props> = ({
 }) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [dropdownItems, setDropdownItems] = useState(
-    getUniqueArray(items, 'id')
-  );
+
+  const dropdownItems = getUniqueArray(items, 'id');
 
   const handleCounterChange = (name: string, amount: number) => {
     const newItems = dropdownItems.map((item) => {
@@ -43,7 +42,6 @@ const Dropdown: FC<Props> = ({
       return currentItem;
     });
 
-    setDropdownItems(newItems);
     onChange?.(newItems);
   };
 
@@ -63,10 +61,6 @@ const Dropdown: FC<Props> = ({
     return () =>
       document.removeEventListener('pointerdown', handleDocumentPointerDown);
   }, []);
-
-  useEffect(() => {
-    setDropdownItems(items);
-  }, [items]);
 
   const handleDropdownPointerDown = () => {
     setIsOpen(!isOpen);

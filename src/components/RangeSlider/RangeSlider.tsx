@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useRef, useState } from 'react';
+import { FC, useCallback, useEffect, useRef } from 'react';
 import noUiSlider, { API } from 'nouislider';
 
 import { moneyFormat } from '../../shared/helpers/moneyFormat/moneyFormat';
@@ -9,7 +9,7 @@ type Props = {
   title: string;
   start: number[];
   step: number;
-  range: { min: number; max: number };
+  range: { min: number; max: number; from: number; to: number };
   text?: string;
   onChange?: (values: number[]) => void;
 };
@@ -27,12 +27,9 @@ const RangeSlider: FC<Props> = ({
   onChange,
 }) => {
   const sliderElementRef = useRef<SliderRef>(null);
-  const [priceText, setPriceText] = useState(`${range.min} - ${range.max}`);
 
   const handleSliderUpdate = useCallback(
     (values: (string | number)[]) => {
-      const valuesString = values.join(' - ');
-      setPriceText(valuesString);
       const formattedValues = values.map((item) =>
         moneyFormat.from(String(item))
       );
@@ -47,7 +44,7 @@ const RangeSlider: FC<Props> = ({
       noUiSlider.create(sliderCurrent, {
         start,
         step,
-        range,
+        range: { min: range.min, max: range.max },
         connect: true,
         format: moneyFormat,
       });
@@ -59,13 +56,30 @@ const RangeSlider: FC<Props> = ({
         sliderCurrent.noUiSlider?.destroy();
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (sliderElementRef.current) {
+      sliderElementRef.current.noUiSlider?.updateOptions(
+        {
+          start,
+          step,
+          range: { min: range.min, max: range.max },
+        },
+        false
+      );
+      sliderElementRef.current.noUiSlider?.on('update', handleSliderUpdate);
+    }
   }, [range, step, start, handleSliderUpdate]);
 
   return (
     <div className="range-slider">
       <div className="range-slider__info">
         <h3 className="range-slider__title">{title}</h3>
-        <div className="range-slider__price">{priceText}</div>
+        <div className="range-slider__price">
+          {`${range.from} - ${range.to}`}
+        </div>
       </div>
       <div ref={sliderElementRef} className="range-slider__slider" />
       {text && <p className="range-slider__note-text">{text}</p>}

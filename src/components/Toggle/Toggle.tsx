@@ -4,17 +4,12 @@ import './Toggle.scss';
 
 type Props = {
   text: string;
-  name?: string;
-  isChecked?: boolean;
+  isChecked: boolean;
+  name: string;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
-const Toggle: FC<Props> = ({
-  text,
-  name = '',
-  isChecked = false,
-  onChange,
-}) => {
+const Toggle: FC<Props> = ({ text, isChecked, name, onChange }) => {
   return (
     <label className="toggle">
       <input

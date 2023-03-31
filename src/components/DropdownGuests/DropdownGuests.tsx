@@ -25,9 +25,7 @@ const DropdownGuests: FC<Props> = ({
 }) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [dropdownItems, setDropdownItems] = useState(
-    getUniqueArray(items, 'id')
-  );
+  const dropdownItems = getUniqueArray(items, 'id');
 
   const totalAmount = dropdownItems.reduce((acc, item) => acc + item.amount, 0);
 
@@ -54,22 +52,15 @@ const DropdownGuests: FC<Props> = ({
       return item;
     });
 
-    setDropdownItems(newItems);
     onChange?.(newItems);
   };
 
-  const getLimit = (id: string) => {
-    let result;
-
+  const hasCurrentItemMaxValue = (id: string) => {
     if (id === 'babies') {
-      result = adultsAmount <= 0 || babiesAmount >= babiesLimit;
+      return adultsAmount <= 0 || babiesAmount >= babiesLimit;
     }
 
-    if (id !== 'babies') {
-      result = guestsAmount >= guestsLimit;
-    }
-
-    return result;
+    return guestsAmount >= guestsLimit;
   };
 
   const clear = () => {
@@ -80,7 +71,6 @@ const DropdownGuests: FC<Props> = ({
       };
     });
 
-    setDropdownItems(newItems);
     onChange?.(newItems);
   };
 
@@ -107,7 +97,6 @@ const DropdownGuests: FC<Props> = ({
       return;
     }
 
-    setDropdownItems(newItems);
     onChange?.(newItems);
   };
 
@@ -128,10 +117,6 @@ const DropdownGuests: FC<Props> = ({
       document.removeEventListener('pointerdown', handleDocumentPointerDown);
   }, []);
 
-  useEffect(() => {
-    setDropdownItems(getUniqueArray(items, 'id'));
-  }, [items]);
-
   const handleDropdownPointerDown = () => {
     setIsOpen((prevState) => !prevState);
   };
@@ -146,10 +131,12 @@ const DropdownGuests: FC<Props> = ({
 
   return (
     <div
+      data-testid="dropdown"
       ref={dropdownRef}
       className={classNames('dropdown', {
         dropdown_opened: isOpen,
       })}
+      data-testid="dropdown"
     >
       <h3 className="dropdown__heading">Гости</h3>
       <div className="dropdown__wrapper">
@@ -182,14 +169,14 @@ const DropdownGuests: FC<Props> = ({
                 name={name}
                 amount={amount}
                 onChangeCounter={handleCounterChange}
-                incrementDisabled={getLimit(id)}
+                incrementDisabled={hasCurrentItemMaxValue(id)}
               />
             ))}
           </ul>
           <div className="dropdown__buttons">
             <div
               className={classNames('dropdown__button-clear', {
-                dropdown__button_hidden: Number(totalAmount) <= 0,
+                dropdown__button_hidden: totalAmount <= 0,
               })}
             >
               <Button text="Очистить" onClick={handleClearButtonPointerDown} />

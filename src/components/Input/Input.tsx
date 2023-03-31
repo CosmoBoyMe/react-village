@@ -13,6 +13,7 @@ type Props = {
   name?: string;
   title?: string;
   hasArrow?: boolean;
+  arrowIsRotated?: boolean;
   isSubscribe?: boolean;
   arrowButtonDataType?: string;
   dataType?: string;
@@ -35,6 +36,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
       name = '',
       title = '',
       hasArrow = false,
+      arrowIsRotated = false,
       isSubscribe = false,
       arrowButtonDataType = '',
       dataType = '',
@@ -94,7 +96,9 @@ const Input = forwardRef<HTMLInputElement, Props>(
           {hasArrow && (
             <button
               type="button"
-              className="input__arrow-button material-icons"
+              className={classNames('input__arrow-button', 'material-icons', {
+                'input__arrow-button_rotate': arrowIsRotated,
+              })}
               data-type={arrowButtonDataType}
             >
               expand_more

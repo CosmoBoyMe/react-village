@@ -5,12 +5,10 @@ type FeedbackItemData = {
   date: Date;
   feedback?: FeedbackListData;
   profilePicture?: string;
-  likes?: { [key: string]: { userId: string } };
+  likes?: Record<string, { userId: string }>;
 };
 
-type FeedbackListData = {
-  [key: string]: FeedbackItemData;
-};
+type FeedbackListData = Record<string, FeedbackItemData>;
 
 interface FeedbackData extends FeedbackItemData {
   roomNumber: string;

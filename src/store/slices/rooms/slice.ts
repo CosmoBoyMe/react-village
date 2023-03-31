@@ -3,12 +3,13 @@ import axios from 'axios';
 
 import { FirebaseAPI } from '../../../FirebaseAPI';
 import { RoomData } from '../../../types/RoomData';
+import { Status } from '../../../types/Status';
 
 type InitialState = {
   rooms: RoomData[];
   roomsAmount: number;
   activePageNumber: number;
-  status: string;
+  status: Status;
   errorMessage: string | null;
 };
 

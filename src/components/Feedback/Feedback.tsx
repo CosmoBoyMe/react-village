@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react';
+import { FC } from 'react';
 
 import defaultAvatar from '../../assets/img/default-avatar.jpg';
 import { getDateName } from '../../shared/helpers/getDateName/getDateName';
@@ -25,32 +25,26 @@ const Feedback: FC<Props> = ({
   date,
   text,
   likeCount,
-  profilePicture = '',
+  profilePicture = defaultAvatar,
   isLiked = false,
   isReplyAllowed = false,
   path = '',
   onClick,
   onSubmit,
 }) => {
-  const handleFeedbackSubmit = useCallback(
-    (replyText: string) => {
-      onSubmit?.(replyText, path);
-    },
-    [onSubmit, path]
-  );
+  const handleFeedbackSubmit = (replyText: string) => {
+    onSubmit?.(replyText, path);
+  };
 
-  const handleFeedbackLike = useCallback(
-    (isFeedbackLiked: boolean) => {
-      onClick?.(isFeedbackLiked, path);
-    },
-    [onClick, path]
-  );
+  const handleFeedbackLike = (isFeedbackLiked: boolean) => {
+    onClick?.(isFeedbackLiked, path);
+  };
 
   return (
     <div className="feedback">
       <img
         className="feedback__image"
-        src={profilePicture || defaultAvatar}
+        src={profilePicture}
         alt="аватар автора отзыва"
       />
       <span className="feedback__name">{name.toLowerCase()}</span>

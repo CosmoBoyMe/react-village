@@ -185,83 +185,7 @@
     }
   }
 
-  &__filter {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 30px;
-    line-height: 15px;
-
-    @include large {
-      flex-direction: column;
-      margin: 0;
-    }
-  }
-
-  &__filter-title {
-    @include font-h3;
-
-    margin-top: 3px;
-
-    @include large {
-      margin-bottom: 20px;
-    }
-  }
-
-  &__filter-tabs {
-    display: flex;
-    align-items: center;
-    border-radius: 4px;
-    box-shadow: 0 4px 25px rgb(0 0 0 / 10%);
-
-    @include large {
-      margin-bottom: 20px;
-    }
-
-    @include medium {
-      flex-direction: column;
-    }
-  }
-
-  &__filter-tab {
-    @include font-h3;
-
-    padding: 6px 20px 7px 22px;
-    color: var(--dark-shade-75);
-    font-size: 12px;
-    background-color: #fff;
-    border: none;
-    cursor: pointer;
-
-    &_active {
-      color: var(--purple);
-      background-color: var(--white);
-      border: 1px solid rgb(31 32 65 / 10%);
-
-      &:first-child {
-        border-radius: 4px 0 0 4px;
-      }
-
-      &:last-child {
-        border-radius: 0 4px 4px 0;
-      }
-    }
-
-    &:last-child {
-      margin-right: 0;
-    }
-
-    @include medium {
-      width: 100%;
-    }
-  }
-
-  &__loader {
-    display: flex;
-    justify-content: center;
-  }
-
-  &__rooms-container {
+  &__booking-rooms {
     max-width: 1200px;
 
     @include large {
@@ -271,26 +195,6 @@
       justify-content: center;
       margin-left: 0;
     }
-  }
-
-  &__confirmed-bookings-title {
-    color: var(--dark-shade-50);
-    font-weight: bold;
-  }
-
-  &__confirmed-bookings-container {
-    display: flex;
-
-    @include extra-large {
-      margin-top: 30px;
-    }
-  }
-
-  &__confirmed-bookings {
-    margin-left: 20px;
-    color: var(--dark-shade);
-    font-weight: bold;
-    font-size: 12px;
   }
 
   &__button-exit-container {

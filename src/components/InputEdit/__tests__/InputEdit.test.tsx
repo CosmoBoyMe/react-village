@@ -12,6 +12,7 @@ describe('InputEdit', () => {
   });
 
   it('renders the text when not editable', () => {
+    // eslint-disable-next-line testing-library/render-result-naming-convention
     const InputEditComponent = render(
       <InputEdit value="Hello" status="idle" />
     );

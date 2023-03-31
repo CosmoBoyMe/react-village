@@ -6,18 +6,18 @@ import './CheckBox.scss';
 type Props = {
   label: string;
   name: string;
-  isRich: boolean;
+  isRich?: boolean;
   description?: string;
-  isChecked?: boolean;
+  isChecked: boolean;
   onChange?: (name: string, status: boolean) => void;
 };
 
 const CheckBox: FC<Props> = ({
-  isRich,
   label,
   name,
+  isChecked,
+  isRich = false,
   description = '',
-  isChecked = false,
   onChange,
 }) => {
   return (

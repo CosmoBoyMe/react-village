@@ -51,7 +51,7 @@ const FeedbackForm: FC<Props> = ({
         onChange={handleTextareaChange}
       />
       <div className="feedback-form__buttons">
-        <SubmitButton text={buttonText} />
+        <SubmitButton text={buttonText} disabled={!text} />
         <div className="feedback-form__character-counter">
           <CharacterCounter
             maxCount={MAX_TEXT_COUNT}

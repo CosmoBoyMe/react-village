@@ -6,23 +6,17 @@ type Props = {
   text: string;
   name: string;
   value: string;
-  isChecked?: boolean;
+  isChecked: boolean;
   onChange?: (value: string) => void;
 };
 
-const Radio: FC<Props> = ({
-  text,
-  name,
-  value,
-  isChecked = false,
-  onChange,
-}) => {
+const Radio: FC<Props> = ({ text, name, value, isChecked, onChange }) => {
   return (
     <label className="radio">
       <input
         type="radio"
         name={name}
-        defaultChecked={isChecked}
+        checked={isChecked}
         className="radio__input"
         value={value}
         onChange={() => onChange?.(value)}

@@ -97,7 +97,7 @@ const CheckList: FC<Props> = ({
             label={label}
             name={name}
             description={description}
-            isChecked={isChecked}
+            isChecked={!!isChecked}
             onChange={onChange}
           />
         ))}

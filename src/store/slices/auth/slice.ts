@@ -3,20 +3,16 @@ import axios, { AxiosError } from 'axios';
 
 import { FirebaseAPI } from '../../../FirebaseAPI';
 import { SignInData, SignUpData } from '../../../types/AuthData';
+import { Status } from '../../../types/Status';
 import type { RootState } from '../../index';
 
 import {
   AuthError,
   calculateExpirationTime,
-  FulfilledAction,
-  PendingAction,
   ReauthenticateData,
-  RejectedAction,
   updateLocalStorage,
   UserData,
 } from './helpers';
-
-export type MatcherActions = PendingAction | FulfilledAction | RejectedAction;
 
 type InitialState = {
   isAuth: boolean;
@@ -29,14 +25,14 @@ type InitialState = {
   userSurname: string | null;
   error: AuthError | string | null;
   profilePicture: string | null;
-  status: 'idle' | 'loading' | 'resolved' | 'rejected';
-  changeProfilePictureStatus: 'idle' | 'loading' | 'resolved' | 'rejected';
+  status: Status;
+  changeProfilePictureStatus: Status;
   changeProfilePictureErrorMessage: null | string;
-  changePasswordStatus: 'idle' | 'loading' | 'resolved' | 'rejected';
+  changePasswordStatus: Status;
   changePasswordErrorMessage: AuthError | string | null;
-  deleteAccountStatus: 'idle' | 'loading' | 'resolved' | 'rejected';
+  deleteAccountStatus: Status;
   deleteAccountErrorMessage: AuthError | string | null;
-  changeUserNameStatus: 'idle' | 'loading' | 'resolved' | 'rejected';
+  changeUserNameStatus: Status;
   changeUserNameErrorMessage: AuthError | string | null;
 };
 
