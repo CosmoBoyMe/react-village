@@ -64,4 +64,4 @@ const updatePromiseAlert = (
   });
 };
 
-export { setPromiseAlert, updatePromiseAlert };
+export { AxiosErrorMessages, setPromiseAlert, updatePromiseAlert };

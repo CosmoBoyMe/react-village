@@ -62,6 +62,7 @@ const InputEdit: FC<Props> = ({
         value={text}
         disabled={!editable}
         onChange={(event) => setText(event.target.value)}
+        data-testid="input-edit-input"
       />
       <div className="input-edit__buttons">
         <div

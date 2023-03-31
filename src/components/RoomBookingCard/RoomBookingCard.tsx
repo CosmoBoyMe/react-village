@@ -19,6 +19,7 @@ import { Button } from '../Button/Button';
 import { Modal } from '../Modal/Modal';
 import { Props as RoomCardProps, RoomCard } from '../RoomCard/RoomCard';
 
+import { CANCELLATION } from './constants';
 import './RoomBookingCard.scss';
 
 type RoomBookingProps = {
@@ -63,7 +64,7 @@ const RoomBookingCard: FC<Props> = ({
         setDisabledButton(true);
         break;
       case 'rejected':
-        updatePromiseAlert(bookingId, 'error', 'Бронирование не отменено');
+        updatePromiseAlert(bookingId, 'error', CANCELLATION.ERROR);
         setDisabledButton(false);
         break;
       default:
@@ -74,13 +75,13 @@ const RoomBookingCard: FC<Props> = ({
 
   const handleCancelClick = async () => {
     setDisabledButton(true);
-    setPromiseAlert(bookingId, 'Отмена брони...');
+    setPromiseAlert(bookingId, CANCELLATION.IN_PROGRESS);
 
     await dispatch(
       removeUserBooking({ userId, roomId: bookingId, roomNumber })
     ).then((res) => {
       if (res.meta.requestStatus === 'fulfilled') {
-        updatePromiseAlert(bookingId, 'success', 'Бронирование отменено');
+        updatePromiseAlert(bookingId, 'success', CANCELLATION.SUCCESS);
       }
     });
   };

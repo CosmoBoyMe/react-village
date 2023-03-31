@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import '@testing-library/jest-dom';
@@ -298,13 +298,13 @@ describe('dropdownGuests component rendering', () => {
     const dropdown = screen.getByTestId('guest-dropdown');
 
     expect(dropdown).not.toHaveClass('dropdown_opened');
-    act(() => {
-      userEvent.click(screen.getByRole('textbox'));
-    });
+    // act(() => {
+    userEvent.click(screen.getByRole('textbox'));
+    // });
     expect(dropdown).toHaveClass('dropdown_opened');
-    act(() => {
-      userEvent.click(screen.getByText('Применить'));
-    });
+    // act(() => {
+    userEvent.click(screen.getByText('Применить'));
+    // });
     expect(dropdown).not.toHaveClass('dropdown_opened');
   });
 });

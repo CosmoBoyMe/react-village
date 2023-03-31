@@ -25,6 +25,7 @@ const Modal: FC<Props> = ({
       className={classNames('modal', {
         modal_active: isActive,
       })}
+      data-testid="booking-details-modal"
     >
       <div
         className={classNames('modal__overlay', {
@@ -32,6 +33,7 @@ const Modal: FC<Props> = ({
         })}
         onClick={handleModalCloseClick}
         role="none"
+        data-testid="modal-overlay"
       >
         <div
           role="none"
@@ -42,6 +44,7 @@ const Modal: FC<Props> = ({
             className="modal__close-btn"
             onClick={handleModalCloseClick}
             type="button"
+            data-testid="modal-close-btn"
           >
             &times;
           </button>
