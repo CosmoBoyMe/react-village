@@ -6,19 +6,13 @@ import '@testing-library/jest-dom';
 import { AxiosErrorMessages } from '../../../libs/toastify/index';
 import { BookingErrorMessages } from '../../../shared/constants/BookingErrorMessages';
 import { DropdownGuestsIds } from '../../../shared/constants/DropdownGuestsIds';
-import { mockedStore } from '../../../shared/testUtils/mockedStore';
 import { renderWithProviders } from '../../../shared/testUtils/testUtils';
-import { initialState as authInitialState } from '../../../store/slices/auth/slice';
-import {
-  BookingRoom as BookingRoomSliceProps,
-  InitialState as InitialStateProfileProps,
-  initialState as initialStateProfileDefault,
-} from '../../../store/slices/profile/slice';
+import { BookingRoom } from '../../../store/slices/profile/slice';
 import { CANCELLATION } from '../../RoomBookingCard/constants';
 import { BookingRooms } from '../BookingRooms';
 
 describe('RoomBookingCard', () => {
-  const sliceProfile: BookingRoomSliceProps = {
+  const sliceProfile: BookingRoom = {
     roomNumber: 1,
     price: 2000,
     feedbackCount: 10,
@@ -79,7 +73,7 @@ describe('RoomBookingCard', () => {
     },
   };
 
-  const sliceProfileWithNotLivedRoom: BookingRoomSliceProps = {
+  const sliceProfileWithNotLivedRoom: BookingRoom = {
     ...sliceProfile,
     ...{
       dates: {
@@ -99,44 +93,14 @@ describe('RoomBookingCard', () => {
     bookingStatus: false,
   };
 
-  const userData = {
-    ...authInitialState,
-    isAuth: true,
-    userName: 'UserName',
-    userSurname: 'UserSurname',
-    userId: 'TEST_USER_ID',
-  };
-
-  const profileDataWithLivedRoom: InitialStateProfileProps = {
-    bookedRooms: [sliceProfile],
-    status: 'resolved',
-    cancelBookingStatus: 'idle',
-    rateStatus: 'idle',
-    errorMessage: null,
-    rateErrorMessage: null,
-  };
-
-  const profileDataWithNotLivedRoom: InitialStateProfileProps = {
-    bookedRooms: [sliceProfileWithNotLivedRoom],
-    status: 'resolved',
-    cancelBookingStatus: 'idle',
-    rateStatus: 'idle',
-    errorMessage: null,
-    rateErrorMessage: null,
-  };
-
   it('renders correctly', () => {
-    renderWithProviders(<BookingRooms />, {
-      preloadedState: {
-        ...mockedStore,
-        auth: {
-          ...userData,
-        },
-        profile: {
-          ...profileDataWithLivedRoom,
-        },
-      },
-    });
+    renderWithProviders(
+      <BookingRooms
+        rooms={[sliceProfile]}
+        status="resolved"
+        errorMessage={null}
+      />
+    );
 
     const priceElements = screen.getAllByText('6 000₽');
     const priceElement = priceElements[0];
@@ -154,17 +118,13 @@ describe('RoomBookingCard', () => {
 
   it(`opens modal on "Подробнее" button click 
       and close on "закрыть" and modal-close-btn`, () => {
-    renderWithProviders(<BookingRooms />, {
-      preloadedState: {
-        ...mockedStore,
-        auth: {
-          ...userData,
-        },
-        profile: {
-          ...profileDataWithLivedRoom,
-        },
-      },
-    });
+    renderWithProviders(
+      <BookingRooms
+        rooms={[sliceProfile]}
+        status="resolved"
+        errorMessage={null}
+      />
+    );
     const modal = screen.getByTestId('booking-details-modal');
     const overlay = screen.getByTestId('modal-overlay');
     const closeModal = screen.getByTestId('modal-close-btn');
@@ -194,17 +154,13 @@ describe('RoomBookingCard', () => {
   });
 
   it(`rating clickable if booking finished`, () => {
-    renderWithProviders(<BookingRooms />, {
-      preloadedState: {
-        ...mockedStore,
-        auth: {
-          ...userData,
-        },
-        profile: {
-          ...profileDataWithLivedRoom,
-        },
-      },
-    });
+    renderWithProviders(
+      <BookingRooms
+        rooms={[sliceProfile]}
+        status="resolved"
+        errorMessage={null}
+      />
+    );
 
     const buttonsStar = screen.getAllByText('star_border');
     const btnStar = buttonsStar[0];
@@ -213,17 +169,13 @@ describe('RoomBookingCard', () => {
   });
 
   it(`rating not clickable if booking not finished`, () => {
-    renderWithProviders(<BookingRooms />, {
-      preloadedState: {
-        ...mockedStore,
-        auth: {
-          ...userData,
-        },
-        profile: {
-          ...profileDataWithNotLivedRoom,
-        },
-      },
-    });
+    renderWithProviders(
+      <BookingRooms
+        rooms={[sliceProfileWithNotLivedRoom]}
+        status="resolved"
+        errorMessage={null}
+      />
+    );
 
     const buttonsStar = screen.getAllByText('star_border');
     const btnStar = buttonsStar[0];
@@ -232,17 +184,13 @@ describe('RoomBookingCard', () => {
   });
 
   it('cancels booking on "Отмена" button click', () => {
-    renderWithProviders(<BookingRooms />, {
-      preloadedState: {
-        ...mockedStore,
-        auth: {
-          ...userData,
-        },
-        profile: {
-          ...profileDataWithNotLivedRoom,
-        },
-      },
-    });
+    renderWithProviders(
+      <BookingRooms
+        rooms={[sliceProfileWithNotLivedRoom]}
+        status="resolved"
+        errorMessage={null}
+      />
+    );
 
     expect(
       screen.getByText('Бронирование не подтверждено')
@@ -258,46 +206,22 @@ describe('RoomBookingCard', () => {
   });
 
   test('displays correct date', () => {
-    renderWithProviders(<BookingRooms />, {
-      preloadedState: {
-        ...mockedStore,
-        auth: {
-          ...userData,
-        },
-        profile: {
-          ...initialStateProfileDefault,
-          bookedRooms: [],
-          status: 'resolved',
-          cancelBookingStatus: 'idle',
-          rateStatus: 'idle',
-          errorMessage: null,
-          rateErrorMessage: null,
-        },
-      },
-    });
+    renderWithProviders(
+      <BookingRooms rooms={[]} status="resolved" errorMessage={null} />
+    );
 
     expect(screen.getByText('У вас нет бронирований')).toBeInTheDocument();
     expect(screen.queryByText('Подробнее')).not.toBeInTheDocument();
   });
 
   test('get error if network off', () => {
-    renderWithProviders(<BookingRooms />, {
-      preloadedState: {
-        ...mockedStore,
-        auth: {
-          ...userData,
-        },
-        profile: {
-          ...initialStateProfileDefault,
-          bookedRooms: [],
-          status: 'rejected',
-          cancelBookingStatus: 'idle',
-          rateStatus: 'idle',
-          errorMessage: AxiosErrorMessages.NETWORK_ERROR,
-          rateErrorMessage: null,
-        },
-      },
-    });
+    renderWithProviders(
+      <BookingRooms
+        rooms={[]}
+        status="rejected"
+        errorMessage={AxiosErrorMessages.NETWORK_ERROR}
+      />
+    );
 
     expect(
       screen.getByText('Произошла ошибка, повторите позже')
@@ -308,26 +232,13 @@ describe('RoomBookingCard', () => {
         canceling room loading and user get error`, async () => {
     renderWithProviders(
       <>
-        <BookingRooms />
+        <BookingRooms
+          rooms={[sliceProfileWithNotLivedRoom]}
+          status="resolved"
+          errorMessage={null}
+        />
         <ToastContainer position="top-right" newestOnTop />;
-      </>,
-      {
-        preloadedState: {
-          ...mockedStore,
-          auth: {
-            ...userData,
-          },
-          profile: {
-            ...initialStateProfileDefault,
-            bookedRooms: [sliceProfileWithNotLivedRoom],
-            status: 'resolved',
-            cancelBookingStatus: 'idle',
-            rateStatus: 'idle',
-            errorMessage: null,
-            rateErrorMessage: null,
-          },
-        },
-      }
+      </>
     );
 
     const cancelBookingButton = screen.getByRole('button', { name: 'Отмена' });
@@ -344,23 +255,13 @@ describe('RoomBookingCard', () => {
 
   test(`if user not have bookings, 
         he get message "У вас нет бронирований"`, async () => {
-    renderWithProviders(<BookingRooms />, {
-      preloadedState: {
-        ...mockedStore,
-        auth: {
-          ...userData,
-        },
-        profile: {
-          ...initialStateProfileDefault,
-          bookedRooms: [sliceProfileWithNotLivedRoom],
-          status: 'rejected',
-          cancelBookingStatus: 'idle',
-          rateStatus: 'idle',
-          errorMessage: BookingErrorMessages.BOOKINGS_NOT_FOUND,
-          rateErrorMessage: null,
-        },
-      },
-    });
+    renderWithProviders(
+      <BookingRooms
+        rooms={[sliceProfileWithNotLivedRoom]}
+        status="rejected"
+        errorMessage={BookingErrorMessages.BOOKINGS_NOT_FOUND}
+      />
+    );
 
     expect(
       await screen.findByText('У вас нет бронирований')
@@ -368,23 +269,9 @@ describe('RoomBookingCard', () => {
   });
 
   test(`if loading bookings in progress, user look Loader`, () => {
-    renderWithProviders(<BookingRooms />, {
-      preloadedState: {
-        ...mockedStore,
-        auth: {
-          ...userData,
-        },
-        profile: {
-          ...initialStateProfileDefault,
-          bookedRooms: [],
-          status: 'loading',
-          cancelBookingStatus: 'idle',
-          rateStatus: 'idle',
-          errorMessage: null,
-          rateErrorMessage: null,
-        },
-      },
-    });
+    renderWithProviders(
+      <BookingRooms rooms={[]} status="loading" errorMessage={null} />
+    );
 
     expect(screen.getByTestId('loader')).toBeInTheDocument();
   });
@@ -1234,35 +1121,24 @@ describe('RoomBookingCard', () => {
       },
     ];
 
-    renderWithProviders(<BookingRooms />, {
-      preloadedState: {
-        ...mockedStore,
-        auth: {
-          ...userData,
-        },
-        profile: {
-          ...initialStateProfileDefault,
-          bookedRooms: mockBookingRooms,
-          status: 'resolved',
-          cancelBookingStatus: 'idle',
-          rateStatus: 'idle',
-          errorMessage: null,
-          rateErrorMessage: null,
-        },
-      },
-    });
+    renderWithProviders(
+      <BookingRooms
+        rooms={mockBookingRooms}
+        status="resolved"
+        errorMessage={null}
+      />
+    );
 
     expect(screen.getByTestId('pagination')).toBeInTheDocument();
-    expect(screen.queryByText('1014')).not.toBeInTheDocument();
+    expect(screen.queryByText('1013')).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByText('arrow_forward'));
 
-    const elementsWithRoomNumber = screen.getAllByText('1014');
-    const roomNumber = elementsWithRoomNumber[0];
-
-    expect(roomNumber).toBeInTheDocument();
+    const elementsRoomInSecondPage = screen.getAllByText('1013');
+    const roomInSecondPage = elementsRoomInSecondPage[0];
+    expect(roomInSecondPage).toBeInTheDocument();
 
     fireEvent.click(screen.getByText('arrow_back'));
-    expect(screen.queryByText('1014')).not.toBeInTheDocument();
+    expect(screen.queryByText('1013')).not.toBeInTheDocument();
   });
 });
