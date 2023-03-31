@@ -62,6 +62,8 @@ const Room: FC = () => {
   const status = useSelector(statusSelect);
   const filters = useSelector(filterSelect);
 
+  console.log('filters.selectedDates>>>', filters.selectedDates);
+
   const user = useSelector(userIdSelect);
   const name = useSelector(userNameSelect);
   const surname = useSelector(userSurnameSelect);
