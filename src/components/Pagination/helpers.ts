@@ -73,4 +73,4 @@ const getPageNumbers = (totalPage: number, activePageNumber: number) => {
   return [firstPage, ...middlePage, lastPage];
 };
 
-export { getCounterText, getPageNumbers };
+export { createMiddlePages, getCounterText, getPageNumbers };

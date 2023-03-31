@@ -74,7 +74,7 @@ const RangeSlider: FC<Props> = ({
   }, [range, step, start, handleSliderUpdate]);
 
   return (
-    <div className="range-slider">
+    <div data-testid="range-slider" className="range-slider">
       <div className="range-slider__info">
         <h3 className="range-slider__title">{title}</h3>
         <div className="range-slider__price">

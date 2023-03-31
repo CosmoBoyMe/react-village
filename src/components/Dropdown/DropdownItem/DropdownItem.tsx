@@ -68,7 +68,9 @@ const DropdownItem: FC<Props> = ({
         >
           -
         </button>
-        <p className="dropdown-item__amount">{amount}</p>
+        <p data-testid="dropdown-item-amount" className="dropdown-item__amount">
+          {amount}
+        </p>
         <button
           className="dropdown-item__button"
           type="button"

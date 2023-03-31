@@ -109,10 +109,11 @@ const Filters: FC = () => {
 
   return (
     <aside className="filters">
-      <div className="filters__button">
+      <div className="filters__button" data-testid="filters__button">
         <Button text="открыть фильтры" onClick={handleClickOpenFilters} />
       </div>
       <div
+        data-testid="filters-content"
         className={classnames('filters__content', {
           filters__content_visible: visibleFilters,
         })}

@@ -1,4 +1,4 @@
-import { act, fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import '@testing-library/jest-dom';
@@ -26,9 +26,9 @@ describe('Header component rendering', () => {
     });
     fireEvent(window, new Event('resize'));
     expect(document.body).not.toHaveStyle('overflow: hidden');
-    act(() => {
-      userEvent.click(burger);
-    });
+    // act(() => {
+    userEvent.click(burger);
+    // });
     expect(document.body).not.toHaveStyle('overflow: hidden');
 
     Object.defineProperty(window, 'innerWidth', {
@@ -39,13 +39,13 @@ describe('Header component rendering', () => {
     fireEvent(window, new Event('resize'));
     expect(document.body).toHaveStyle('overflow: hidden');
 
-    act(() => {
-      userEvent.click(burger);
-    });
+    // act(() => {
+    userEvent.click(burger);
+    // });
     expect(document.body).not.toHaveStyle('overflow: hidden');
-    act(() => {
-      userEvent.click(burger);
-    });
+    // act(() => {
+    userEvent.click(burger);
+    // });
     expect(document.body).toHaveStyle('overflow: hidden');
 
     Object.defineProperty(window, 'innerWidth', {
@@ -86,9 +86,9 @@ describe('Header component rendering', () => {
       value: 500,
     });
     fireEvent(window, new Event('resize'));
-    act(() => {
-      userEvent.click(burger);
-    });
+    // act(() => {
+    userEvent.click(burger);
+    // });
     expect(document.body).toHaveStyle('overflow: hidden');
     userEvent.click(screen.getByRole('navigation'));
     expect(document.body).toHaveStyle('overflow: hidden');

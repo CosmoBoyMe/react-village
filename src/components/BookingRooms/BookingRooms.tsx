@@ -41,7 +41,7 @@ const BookingRooms: FC<Props> = ({
   const [page, setPage] = useState(1);
   const [confirmedRooms, setConfirmedRooms] = useState(0);
   const [roomsPerPage, setRoomsPerPage] = useState(
-    document.documentElement.clientWidth <= WindowSizes.Medium
+    window.innerWidth <= WindowSizes.Medium
       ? ITEMS_PER_PAGE_MEDIUM
       : ITEMS_PER_PAGE
   );
@@ -98,11 +98,10 @@ const BookingRooms: FC<Props> = ({
   }, [filteredRooms]);
 
   useEffect(() => {
-    let roomPerPageIsChanged =
-      document.documentElement.clientWidth <= WindowSizes.Medium;
+    let roomPerPageIsChanged = window.innerWidth <= WindowSizes.Medium;
 
     const handleWindowResize = () => {
-      if (document.documentElement.clientWidth <= WindowSizes.Medium) {
+      if (window.innerWidth <= WindowSizes.Medium) {
         setRoomsPerPage(ITEMS_PER_PAGE_MEDIUM);
 
         if (!roomPerPageIsChanged) {

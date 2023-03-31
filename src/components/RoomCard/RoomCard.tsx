@@ -43,7 +43,7 @@ const RoomCard: FC<Props> = ({
   };
 
   return (
-    <div className="room-card">
+    <div className="room-card" data-testid="room-card">
       <ImageSlider imgsSrc={imgsSrc} />
       <div className="room-card__description">
         <Link

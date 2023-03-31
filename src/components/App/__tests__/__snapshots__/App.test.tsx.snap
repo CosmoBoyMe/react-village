@@ -127,6 +127,7 @@ Object {
             >
               <div
                 class="loader"
+                data-testid="loader"
                 title="ожидание загрузки"
               />
             </div>
@@ -544,6 +545,7 @@ Object {
           >
             <div
               class="loader"
+              data-testid="loader"
               title="ожидание загрузки"
             />
           </div>

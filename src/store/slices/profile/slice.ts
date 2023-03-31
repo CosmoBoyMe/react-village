@@ -21,7 +21,7 @@ type PropsBookingRoom = {
 
 export type BookingRoom = RoomData & PropsBookingRoom;
 
-type InitialState = {
+export type InitialState = {
   bookedRooms: BookingRoom[] | [];
   status: Status;
   cancelBookingStatus: Status;
@@ -30,7 +30,7 @@ type InitialState = {
   rateErrorMessage: Message;
 };
 
-const initialState: InitialState = {
+export const initialState: InitialState = {
   bookedRooms: [],
   status: 'idle',
   cancelBookingStatus: 'idle',
@@ -249,4 +249,4 @@ const slice = createSlice({
 
 const profileReducer = slice.reducer;
 
-export { initialState, profileReducer };
+export { profileReducer };

@@ -43,7 +43,12 @@ const DropdownGuestsItem: FC<Props> = ({
         >
           -
         </button>
-        <p className="dropdown-item__amount">{amount}</p>
+        <p
+          data-testid="dropdown-guest-amount"
+          className="dropdown-item__amount"
+        >
+          {amount}
+        </p>
         <button
           className="dropdown-item__button"
           type="button"

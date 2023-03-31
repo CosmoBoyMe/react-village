@@ -18,6 +18,10 @@ const setupStore = (preloadedState?: PreloadedState<RootState>) => {
   return configureStore({
     reducer: rootReducer,
     preloadedState,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: false,
+      }),
   });
 };
 
@@ -29,13 +33,11 @@ const renderWithProviders = (
     ...renderOptions
   }: ExtendedRenderOptions = {}
 ) => {
-  const wrapper = ({ children }: PropsWithChildren<unknown>): JSX.Element => {
-    return (
-      <Provider store={store}>
-        <BrowserRouter>{children}</BrowserRouter>
-      </Provider>
-    );
-  };
+  const wrapper = ({ children }: PropsWithChildren<unknown>): JSX.Element => (
+    <Provider store={store}>
+      <BrowserRouter>{children}</BrowserRouter>
+    </Provider>
+  );
   return { store, ...render(ui, { wrapper, ...renderOptions }) };
 };
 
