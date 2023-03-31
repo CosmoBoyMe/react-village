@@ -42,7 +42,7 @@ let globalBookingId: string;
 let globalRoomNumber: number;
 
 describe('profile slice', () => {
-  it(`cancellation failure if user have rooms, 
+  it(`cancellation failure if user have rooms,
       but data not correct`, async () => {
     const thunkCancel = removeUserBooking({
       userId: 'Tester',

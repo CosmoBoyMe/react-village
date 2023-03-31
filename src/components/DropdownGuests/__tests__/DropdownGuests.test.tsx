@@ -20,7 +20,7 @@ describe('dropdownGuests component rendering', () => {
     expect(view).toMatchSnapshot();
   });
 
-  it(`Should return item value when active Plus button clicked - 
+  it(`Should return item value when active Plus button clicked -
   case 1`, () => {
     const guests = [
       { id: DropdownGuestsIds.ADULTS, name: 'взрослые', amount: 0 },
@@ -56,7 +56,7 @@ describe('dropdownGuests component rendering', () => {
     ]);
   });
 
-  it(`Should return item value when active Plus button clicked - 
+  it(`Should return item value when active Plus button clicked -
   case 2`, () => {
     const guests = [
       { id: DropdownGuestsIds.ADULTS, name: 'взрослые', amount: 0 },
@@ -85,7 +85,7 @@ describe('dropdownGuests component rendering', () => {
     ]);
   });
 
-  it(`Should return item value when active Plus button clicked - 
+  it(`Should return item value when active Plus button clicked -
   case 3`, () => {
     const guests = [
       { id: DropdownGuestsIds.ADULTS, name: 'взрослые', amount: 1 },
@@ -114,7 +114,7 @@ describe('dropdownGuests component rendering', () => {
     ]);
   });
 
-  it(`Should return item value when active Minus button clicked - 
+  it(`Should return item value when active Minus button clicked -
   case 1`, () => {
     const guests = [
       { id: DropdownGuestsIds.ADULTS, name: 'взрослые', amount: 1 },
@@ -143,7 +143,7 @@ describe('dropdownGuests component rendering', () => {
     ]);
   });
 
-  it(`Should return item value when active Minus button clicked - 
+  it(`Should return item value when active Minus button clicked -
   case 2`, () => {
     const guests = [
       { id: DropdownGuestsIds.ADULTS, name: 'взрослые', amount: 0 },
@@ -196,7 +196,7 @@ describe('dropdownGuests component rendering', () => {
     expect(onChange).not.toBeCalled();
   });
 
-  it(`Should not return item value when inactive Plus button clicked - 
+  it(`Should not return item value when inactive Plus button clicked -
   case 2`, () => {
     const guests = [
       { id: DropdownGuestsIds.ADULTS, name: 'взрослые', amount: 1 },
@@ -221,7 +221,7 @@ describe('dropdownGuests component rendering', () => {
     expect(onChange).not.toBeCalled();
   });
 
-  it(`Should not return item value when inactive Plus or Minus button clicked - 
+  it(`Should not return item value when inactive Plus or Minus button clicked -
   case 3`, () => {
     const guests = [
       { id: DropdownGuestsIds.ADULTS, name: 'взрослые', amount: 0 },
