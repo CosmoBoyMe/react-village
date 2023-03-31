@@ -11,8 +11,9 @@ type Props = {
 
 const Toggle: FC<Props> = ({ text, isChecked, name, onChange }) => {
   return (
-    <label className="toggle">
+    <label data-testid="toggle" className="toggle">
       <input
+        data-testid="toggle-input"
         onChange={onChange}
         type="checkbox"
         name={name}

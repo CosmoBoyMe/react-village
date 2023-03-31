@@ -12,8 +12,9 @@ type Props = {
 
 const Radio: FC<Props> = ({ text, name, value, isChecked, onChange }) => {
   return (
-    <label className="radio">
+    <label data-testid="radio" className="radio">
       <input
+        data-testid="radio-input"
         type="radio"
         name={name}
         checked={isChecked}

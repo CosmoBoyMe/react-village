@@ -62,10 +62,11 @@ const Input = forwardRef<HTMLInputElement, Props>(
       };
     }, [hasDateMask]);
     return (
-      <div className="input">
+      <div data-testid="input" className="input">
         {title && <h3 className="input__heading">{title}</h3>}
         <div className="input__wrapper">
           <input
+            data-testid="input-input"
             ref={ref}
             className={classNames('input__input', {
               'input__input_with-button': isSubscribe,
