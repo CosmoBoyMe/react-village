@@ -131,11 +131,12 @@ const Rooms: FC = () => {
         }
 
         if (selectedDates.length === 2) {
-          const { reservedDates } = room;
+          const { bookedDates } = room;
+          const reservedDates = Object.values(bookedDates ?? {});
           const selectedFromDate = selectedDates[0];
           const selectedToDate = selectedDates[1];
           for (let i = 0; i < reservedDates.length - 1; i += 1) {
-            const { from, to } = reservedDates[i];
+            const { from, to } = reservedDates[i].dates;
             if (
               new Date(from.split('.').reverse().join('.')) >=
                 selectedFromDate &&
