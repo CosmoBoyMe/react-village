@@ -1,0 +1,170 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputEdit renders the text when not editable 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="input-edit"
+      >
+        <span
+          class="input-edit__text"
+        >
+          Hello
+        </span>
+        <input
+          class="input-edit__input input-edit__input_disabled"
+          data-testid="input-edit-input"
+          disabled=""
+          placeholder=""
+          type="text"
+          value="Hello"
+        />
+        <div
+          class="input-edit__buttons"
+        >
+          <div
+            class="input-edit__fun-btn-container input-edit__fun-btn-container_hidden"
+          >
+            <button
+              class="input-edit__save-edit material-icons-outlined"
+              title="сохранить"
+              type="button"
+            >
+              done
+            </button>
+          </div>
+          <div
+            class="input-edit__fun-btn-container input-edit__fun-btn-container_hidden"
+          >
+            <button
+              class="input-edit__close-edit material-icons-outlined"
+              title="отмена"
+              type="button"
+            >
+              close
+            </button>
+          </div>
+        </div>
+        <div
+          class="input-edit__button-edit-container"
+        >
+          <button
+            class="button-edit material-icons-outlined"
+            type="button"
+          >
+            edit
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="input-edit"
+    >
+      <span
+        class="input-edit__text"
+      >
+        Hello
+      </span>
+      <input
+        class="input-edit__input input-edit__input_disabled"
+        data-testid="input-edit-input"
+        disabled=""
+        placeholder=""
+        type="text"
+        value="Hello"
+      />
+      <div
+        class="input-edit__buttons"
+      >
+        <div
+          class="input-edit__fun-btn-container input-edit__fun-btn-container_hidden"
+        >
+          <button
+            class="input-edit__save-edit material-icons-outlined"
+            title="сохранить"
+            type="button"
+          >
+            done
+          </button>
+        </div>
+        <div
+          class="input-edit__fun-btn-container input-edit__fun-btn-container_hidden"
+        >
+          <button
+            class="input-edit__close-edit material-icons-outlined"
+            title="отмена"
+            type="button"
+          >
+            close
+          </button>
+        </div>
+      </div>
+      <div
+        class="input-edit__button-edit-container"
+      >
+        <button
+          class="button-edit material-icons-outlined"
+          type="button"
+        >
+          edit
+        </button>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

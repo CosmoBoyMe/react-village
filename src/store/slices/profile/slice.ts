@@ -21,7 +21,7 @@ type PropsBookingRoom = {
 
 export type BookingRoom = RoomData & PropsBookingRoom;
 
-type InitialState = {
+export type InitialState = {
   bookedRooms: BookingRoom[] | [];
   status: Status;
   cancelBookingStatus: Status;
