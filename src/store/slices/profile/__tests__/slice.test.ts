@@ -38,8 +38,8 @@ beforeAll(async () => {
 afterAll(() => server.close());
 afterEach(() => server.resetHandlers());
 
-// let globalBookingId: string;
-// let globalRoomNumber: number;
+let globalBookingId: string;
+let globalRoomNumber: number;
 
 describe('profile slice', () => {
   it(`cancellation failure if user have rooms,
