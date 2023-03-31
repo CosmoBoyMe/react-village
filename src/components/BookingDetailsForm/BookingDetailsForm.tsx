@@ -31,7 +31,7 @@ const BookingDetailsForm: FC<Props> = ({
   totalAmount,
   days,
   dates,
-  guests,
+  guests = [],
   isLux = false,
   onSubmit,
 }) => {
